@@ -8,10 +8,10 @@ function App() {
   return (
     <>
       <UserProfile 
-        name="Badr Fatahallah"
-        age="29"
-        bio="Loves hiking, photography, and coding React applications!"
-      />
+       name="Alice" 
+       age="25" 
+       bio="Loves hiking and photography" />
+  
       <Header />
       <MainContent />
       <Footer />
