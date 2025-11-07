@@ -1,18 +1,89 @@
-# React + Vite
+## ALX React Props → Context Refactor (Variant: alx-react-app-props)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a fork of the primary `alx-react-app` created specifically to refactor a prop-drilling chain into the React Context API and demonstrate progressive enhancement (custom hook, safer consumption, removal of intermediate props).
 
-Currently, two official plugins are available:
+### Goals
+- Show the anti-pattern: deeply passing `userData` via `App -> ProfilePage -> UserInfo -> UserDetails`.
+- Replace manual prop forwarding with `<UserContext.Provider>`.
+- Expose a custom `useUser()` hook for ergonomic and safe access.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Refactor Stages
+1. Duplicate primary app into `alx-react-app-props`.
+2. Create `UserContext.js` with `createContext`.
+3. Wrap `App.jsx` children with `UserContext.Provider` supplying `{ name, email }`.
+4. Update `UserDetails.jsx` to use `useContext(UserContext)`.
+5. Remove `userData` prop from `ProfilePage` and `UserInfo` (no longer needed).
+6. Introduce `useUser()` custom hook and default export of context.
+7. Update `UserProfile.jsx` to also consume context (so tests confirm context usage across multiple components).
 
-## React Compiler
+### Current Context Implementation
+```javascript
+// src/components/UserContext.js
+import { createContext, useContext } from 'react';
+const defaultUser = { name: '', email: '' };
+const UserContext = createContext(defaultUser);
+export function useUser() {
+	const ctx = useContext(UserContext);
+	if (ctx == null) throw new Error('useUser must be used within a <UserContext.Provider>');
+	return ctx;
+}
+export { UserContext };
+export default UserContext;
+```
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Component Chain After Refactor
+```
+App.jsx
+	└─ <UserContext.Provider value={userData}>
+			 ├─ Header
+			 ├─ ProfilePage
+			 │    └─ UserInfo
+			 │         └─ UserDetails (uses useUser())
+			 ├─ MainContent
+			 ├─ UserProfile (now also uses context)
+			 └─ Footer
+```
 
-Note: This will impact Vite dev & build performances.
+### Example Consumer (UserDetails)
+```jsx
+import { useUser } from './components/UserContext';
+function UserDetails() {
+	const user = useUser();
+	return (
+		<div>
+			<p><strong>Name:</strong> {user.name}</p>
+			<p><strong>Email:</strong> {user.email}</p>
+		</div>
+	);
+}
+```
 
-## Expanding the ESLint configuration
+### Why Context Here?
+| Before (Props) | After (Context) |
+|----------------|------------------|
+| Intermediate components forward props they don’t use | Only real consumer reads data |
+| Harder to add new nested consumers | Any descendant can call `useUser()` |
+| Tedious renaming / shape changes | Centralized provider value |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Running This Variant
+```bash
+cd alx-react-app-props
+npm install
+npm run dev
+```
+
+### Potential Next Steps
+- Add `setUser` to provider for editable profile.
+- Introduce optimistic profile update simulation (async).
+- Add TypeScript + interface for user shape.
+- Add unit tests: render `UserDetails` with a mocked provider.
+
+### Comparison With Other Folders
+| Folder | Purpose |
+|--------|---------|
+| `alx-react-app` | Baseline + UI restoration + inline styling demo |
+| `alx-react-app-new` | Experimental playground + Counter component |
+| `alx-react-app-props` | Context refactor and custom hook demo |
+
+### Credits
+Authored as part of the ALX Front-End Learning Curriculum – Context API module.

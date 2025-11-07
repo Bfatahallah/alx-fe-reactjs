@@ -21,6 +21,17 @@ npm install
 npm run dev
 ```
 
+## Repository Structure
+
+This repository contains three related React apps used for learning and iteration:
+
+```
+alx-fe-reactjs/
+├── alx-react-app/         # Primary app (basics + restored Vite starter UI)
+├── alx-react-app-new/     # Rebuild + Counter component and styling experiments
+└── alx-react-app-props/   # Prop drilling → Context API refactor (with custom hook)
+```
+
 ## Project Structure (Primary App)
 ```
 alx-react-app/
@@ -169,6 +180,23 @@ npm install
 npm run dev
 ```
 
+## Variant Project: `alx-react-app-props` (Context API)
+
+This app demonstrates moving from prop drilling to the React Context API.
+
+Highlights:
+- `UserContext.js` initializes a context with a sensible default value.
+- Exports both a named `UserContext` and a default export for flexibility.
+- Provides a custom `useUser()` hook that wraps `useContext(UserContext)` safely.
+- Components such as `UserDetails.jsx` and `UserProfile.jsx` consume the context directly (no prop drilling).
+
+Run it independently:
+```bash
+cd alx-react-app-props
+npm install
+npm run dev
+```
+
 ## Key Concepts Learned
 
 1. **React Component Creation**
@@ -191,20 +219,39 @@ npm run dev
    - Component separation
    - Clean code practices
 
-## Running the Application
+5. **Context API (alx-react-app-props)**
+    - `createContext` + `useContext` for global state
+    - Custom hook (`useUser`) for ergonomic and safe access
+    - Provider at the app root to distribute user data
 
+6. **Vite Starter UI & State**
+    - Restored Vite logos and counter in the primary app
+    - Separate `Counter` component in the `alx-react-app-new` variant
+
+## Running the Applications
+
+Primary (`alx-react-app`):
 ```bash
-# Navigate to the project directory
 cd alx-react-app
-
-# Install dependencies (if not done already)
 npm install
-
-# Start the development server
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173` (or another port if 5173 is in use).
+New variant (`alx-react-app-new`):
+```bash
+cd alx-react-app-new
+npm install
+npm run dev
+```
+
+Props → Context variant (`alx-react-app-props`):
+```bash
+cd alx-react-app-props
+npm install
+npm run dev
+```
+
+Each app typically starts on `http://localhost:5173` unless that port is in use (Vite will auto-increment the port).
 
 ## Development Tools Used
 
