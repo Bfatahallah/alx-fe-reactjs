@@ -21,7 +21,7 @@ npm install
 npm run dev
 ```
 
-## Project Structure
+## Project Structure (Primary App)
 ```
 alx-react-app/
 ├── src/
@@ -40,7 +40,7 @@ alx-react-app/
 └── vite.config.js
 ```
 
-## Component Development Journey
+## Component Development Journey (Primary `alx-react-app`)
 
 ### 1. Welcome Message Component
 Created a simple welcome component to display a greeting message:
@@ -130,6 +130,43 @@ function App() {
     </>
   )
 }
+```
+
+## Styling Enhancements
+
+Later in the iteration, inline styles were added to demonstrate quick component-level visual changes:
+
+```jsx
+// Example (Header.jsx)
+<header style={{ backgroundColor: 'navy', color: 'white', textAlign: 'center', padding: '1rem' }}>
+    <h1>My Bucket list of Favorite Cities</h1>
+</header>
+```
+
+```jsx
+// Example (UserProfile.jsx)
+<div style={{ border: '1px solid gray', padding: '12px', margin: '12px', borderRadius: '8px', maxWidth: '360px' }}>
+    <h2 style={{ color: 'blue', fontSize: '1.5rem', margin: 0 }}>{props.name}</h2>
+    <p style={{ margin: '8px 0' }}>Age: <span style={{ fontWeight: 'bold' }}>{props.age}</span></p>
+    <p style={{ color: '#333', margin: 0 }}>Bio: {props.bio}</p>
+</div>
+```
+
+These can later be refactored into CSS classes or CSS Modules for maintainability.
+
+## Variant Project: `alx-react-app-new`
+
+A secondary folder (`alx-react-app-new/`) was created to safely experiment with:
+
+- Reapplying component construction from scratch
+- Inline styling of all components (Header, MainContent, Footer, UserProfile)
+- A separate README documenting its purpose
+
+Run it independently:
+```bash
+cd alx-react-app-new
+npm install
+npm run dev
 ```
 
 ## Key Concepts Learned
