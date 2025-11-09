@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { palette, radius } from '../theme.js';
+import { useTheme, radius } from '../theme.js';
 
 function Contact() {
   const [formData, setFormData] = useState({ name:'', email:'', message:'' });
@@ -30,20 +30,22 @@ function Contact() {
     }
   };
 
+  const { palette } = useTheme();
   const fieldStyle = {
     display:'block',
     width:'100%',
     padding:'12px 14px',
     margin:'8px 0',
     borderRadius: radius.sm,
-    border:'1px solid #cbd5e1',
+    border:`1px solid ${palette.mode==='dark' ? '#2a3f50' : '#cbd5e1'}`,
     fontSize:'0.95rem',
-    background:'#fff'
+    background: palette.surface,
+    color: palette.text
   };
   const errorStyle = { color: palette.danger, fontSize:'0.75rem', margin:'-4px 0 8px' };
 
   return (
-    <div style={{ padding: '36px 0' }}>
+    <div style={{ padding: '36px 0', color: palette.text }}>
       <h1 style={{marginTop:0}}>Contact Us</h1>
       <form onSubmit={handleSubmit} style={{maxWidth:'520px'}} noValidate>
         <input
@@ -73,7 +75,7 @@ function Contact() {
           style={{...fieldStyle, resize:'vertical'}}
         />
         {errors.message && <div style={errorStyle}>{errors.message}</div>}
-        <button type="submit" style={{background:palette.primaryEnd, color:'#fff', border:'none', padding:'14px 24px', borderRadius:radius.md, cursor:'pointer', fontSize:'0.95rem', fontWeight:600, letterSpacing:'0.5px', boxShadow:'0 4px 10px rgba(0,0,0,0.15)'}}>
+        <button type="submit" className="btn-primary" style={{background:palette.primaryEnd, color:palette.textLight, border:'none', padding:'14px 24px', borderRadius:radius.md, cursor:'pointer', fontSize:'0.95rem', fontWeight:600, letterSpacing:'0.5px', boxShadow:'0 4px 10px rgba(0,0,0,0.15)'}}>
           Send Message
         </button>
         {submitted && <p style={{color:palette.success, marginTop:'14px'}}>Form submitted!</p>}

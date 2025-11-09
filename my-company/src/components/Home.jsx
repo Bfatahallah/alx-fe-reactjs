@@ -1,11 +1,12 @@
-import { palette, gradient, radius, shadows } from '../theme.js';
+import { useTheme, gradient, radius, shadows } from '../theme.js';
 
 function Home() {
+  const { palette } = useTheme();
   const heroStyle = {
-    background: gradient(),
+    background: gradient(palette.primaryStart, palette.primaryEnd),
     padding: '64px 42px',
     borderRadius: radius.lg,
-    color: '#fff',
+    color: palette.textLight,
     boxShadow: shadows.elevated,
     position: 'relative',
     overflow: 'hidden'
@@ -32,9 +33,13 @@ function Home() {
     <div style={{ padding: '32px 0' }}>
       <section style={heroStyle}>
         <div style={overlay} />
-        <h1 style={{marginTop:0, fontSize:'2.4rem', letterSpacing:'1px'}}>Welcome to Our Company</h1>
-        <p style={{fontSize:'1.15rem', maxWidth:'640px', lineHeight:1.6}}>We are dedicated to delivering excellence in technology, strategy, and innovation. Explore our services and discover how we can accelerate your growth.</p>
-        <a href="/services" style={ctaBtn}>Explore Services →</a>
+        <h1 style={{marginTop:0, fontSize:'2.4rem', letterSpacing:'1px'}}>
+          Welcome to Our Company
+        </h1>
+        <p style={{fontSize:'1.15rem', maxWidth:'640px', lineHeight:1.6, color:palette.textLight}}>
+          We are dedicated to delivering excellence in technology, strategy, and innovation. Explore our services and discover how we can accelerate your growth.
+        </p>
+        <a href="/services" style={ctaBtn} className="btn-cta">Explore Services →</a>
       </section>
     </div>
   );
