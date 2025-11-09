@@ -1,0 +1,13 @@
+# Root ignores for all subprojects
+**/node_modules/
+**/dist/
+
+# Logs
+**/npm-debug.log*
+**/yarn-error.log
+**/pnpm-debug.log
+
+# OS/Editor
+.DS_Store
+Thumbs.db
+.vscode/
