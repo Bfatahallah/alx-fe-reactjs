@@ -23,13 +23,14 @@ npm run dev
 
 ## Repository Structure
 
-This repository contains three related React apps used for learning and iteration:
+This repository contains four related React apps used for learning and iteration:
 
 ```
 alx-fe-reactjs/
 ├── alx-react-app/         # Primary app (basics + restored Vite starter UI)
 ├── alx-react-app-new/     # Rebuild + Counter component and styling experiments
-└── alx-react-app-props/   # Prop drilling → Context API refactor (with custom hook)
+├── alx-react-app-props/   # Prop drilling → Context API refactor (with custom hook)
+└── my-company/            # Four-page company site with React Router + inline styles
 ```
 
 ## Project Structure (Primary App)
@@ -197,6 +198,29 @@ npm install
 npm run dev
 ```
 
+## Project: `my-company` (Company Website with Routing)
+
+This app showcases a simple four-page company website using React Router and inline styling.
+
+Pages and features:
+- Home: Welcome message
+- About: Company information
+- Services: List of services
+- Contact: Contact form with state (`useState`) and basic submit feedback
+- Navbar: Global navigation using `Link` from `react-router-dom`
+- Optional Footer: Renders on all pages
+
+Routing setup:
+- `BrowserRouter` is initialized in `src/main.jsx`
+- `Routes` and `Route` are defined in `src/App.jsx` for each page
+
+Run it independently:
+```bash
+cd my-company
+npm install
+npm run dev
+```
+
 ## Key Concepts Learned
 
 1. **React Component Creation**
@@ -228,6 +252,14 @@ npm run dev
     - Restored Vite logos and counter in the primary app
     - Separate `Counter` component in the `alx-react-app-new` variant
 
+7. **Routing with React Router (my-company)**
+    - `react-router-dom` with `BrowserRouter`, `Routes`, `Route`, and `Link`
+    - Shared layout components (Navbar, Footer) across pages
+
+8. **Form State Basics (my-company)**
+    - Managing controlled inputs via `useState`
+    - Inline styling for form elements and basic feedback
+
 ## Running the Applications
 
 Primary (`alx-react-app`):
@@ -251,7 +283,18 @@ npm install
 npm run dev
 ```
 
+Company website (`my-company`):
+```bash
+cd my-company
+npm install
+npm run dev
+```
+
 Each app typically starts on `http://localhost:5173` unless that port is in use (Vite will auto-increment the port).
+
+### Version Control Hygiene
+- Build outputs (`dist/`) and dependencies (`node_modules/`) are ignored via the root `.gitignore`.
+- If you need to reclaim disk space or reset dependencies, you can delete `node_modules/` and reinstall with `npm install` inside the target app folder.
 
 ## Development Tools Used
 
