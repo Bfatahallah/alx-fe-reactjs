@@ -7,8 +7,8 @@ export default function EditRecipeForm({ recipe, onDone }){
   const [title, setTitle] = useState(recipe.title)
   const [description, setDescription] = useState(recipe.description)
 
-  const handleSave = (e)=>{
-    e.preventDefault()
+  const handleSave = (event)=>{
+    event.preventDefault()
     updateRecipe({ ...recipe, title, description })
     if (onDone) onDone()
   }
