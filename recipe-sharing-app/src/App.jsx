@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import { useTheme } from './ThemeProvider'
 import AddRecipeForm from './components/AddRecipeForm'
 import RecipeList from './components/RecipeList'
@@ -7,6 +7,7 @@ import SearchBar from './components/SearchBar'
 import FavoritesList from './components/FavoritesList'
 import RecommendationsList from './components/RecommendationsList'
 
+// Router context is provided by BrowserRouter in main.jsx
 function Home(){
   return (
     <div style={{padding:20}}>
@@ -26,7 +27,7 @@ function Home(){
   )
 }
 
-function App(){
+function AppRouter(){
   const { mode, toggle } = useTheme()
 
   return (
@@ -51,5 +52,7 @@ function App(){
     </div>
   )
 }
+
+const App = AppRouter
 
 export default App
