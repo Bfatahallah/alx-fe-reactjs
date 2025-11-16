@@ -27,10 +27,11 @@ This repository contains four related React apps used for learning and iteration
 
 ```
 alx-fe-reactjs/
-├── alx-react-app/         # Primary app (basics + restored Vite starter UI)
-├── alx-react-app-new/     # Rebuild + Counter component and styling experiments
-├── alx-react-app-props/   # Prop drilling → Context API refactor (with custom hook)
-└── my-company/            # Four-page company site with React Router + inline styles
+├── alx-react-app/              # Primary app (basics + restored Vite starter UI)
+├── alx-react-app-new/          # Rebuild + Counter component and styling experiments
+├── alx-react-app-props/        # Prop drilling → Context API refactor (with custom hook)
+├── my-company/                 # Four-page company site with React Router + inline styles
+└── recipe-sharing-app/         # Recipe management app with Zustand + dark-mode theme
 ```
 
 ## Project Structure (Primary App)
@@ -221,6 +222,93 @@ npm install
 npm run dev
 ```
 
+## Project: `recipe-sharing-app` (Recipe Management with Zustand & Theme)
+
+This app demonstrates state management using Zustand, React Router navigation, dark-mode theming, and a modular component architecture.
+
+### Features
+- **Recipe Management**: Add, edit, delete, and view recipes
+- **Search & Filter**: Find recipes by title or description
+- **Favorites**: Toggle recipes as favorites and view them in a dedicated sidebar
+- **Recommendations**: AI-powered recipe suggestions based on favorites
+- **Dark Mode Toggle**: Switch between light and dark themes with localStorage persistence
+- **Responsive Layout**: Two-column grid with sidebar for favorites and recommendations
+
+### Project Structure
+```
+recipe-sharing-app/
+├── src/
+│   ├── components/
+│   │   ├── AddRecipeForm.jsx       # Form to add new recipes
+│   │   ├── EditRecipeForm.jsx      # Form to edit existing recipes (with event.preventDefault)
+│   │   ├── DeleteRecipeButton.jsx  # Standalone delete button with useNavigate
+│   │   ├── RecipeList.jsx          # Display all recipes from store
+│   │   ├── RecipeDetails.jsx       # View full recipe details with edit/delete
+│   │   ├── SearchBar.jsx           # Search recipes by title/description
+│   │   ├── FavoritesList.jsx       # Show favorite recipes in sidebar
+│   │   └── RecommendationsList.jsx # AI-powered recipe recommendations
+│   ├── store/
+│   │   └── recipeStore.js          # Zustand store with recipe state & actions
+│   ├── App.jsx                     # Main router component (AppRouter)
+│   ├── ThemeProvider.jsx           # Dark-mode theme context + localStorage
+│   ├── index.css                   # CSS variables & theme-aware utility classes
+│   ├── main.jsx                    # Entry point (BrowserRouter + ThemeProvider)
+│   └── ...
+├── package.json
+└── vite.config.js
+```
+
+### Zustand Store Architecture
+```javascript
+// src/store/recipeStore.js
+const useRecipeStore = create(state => ({
+  recipes: [/* initial recipes */],
+  favorites: [],
+  searchTerm: '',
+  
+  // Actions
+  addRecipe: (recipe) => { /* ... */ },
+  updateRecipe: (recipe) => { /* ... */ },
+  deleteRecipe: (id) => { /* ... */ },
+  setSearchTerm: (term) => { /* ... */ },
+  toggleFavorite: (recipeId) => { /* ... */ },
+  generateRecommendations: () => { /* ... */ },
+}))
+```
+
+### Theme System
+- **ThemeProvider**: Wraps the app in `main.jsx`, manages light/dark mode state
+- **Dark-Mode Toggle**: Button in header (🌙 Dark / ☀️ Light)
+- **CSS Variables**: Color palette controlled via `[data-theme]` selector in `index.css`
+- **localStorage Persistence**: Theme preference survives page reloads
+- **Shared Classes**: `.btn`, `.btn-primary`, `.btn-danger`, `.card`, `.link` use theme variables
+
+### Routing
+- `/` → Home (recipe list + sidebar)
+- `/recipe/:id` → RecipeDetails (view, edit, delete)
+
+### Running the App
+```bash
+cd recipe-sharing-app
+npm install
+npm run dev
+```
+
+Visit http://localhost:5173/ and:
+1. Add a recipe using the "Add Recipe" form
+2. Search recipes using the SearchBar
+3. Click a recipe to view details and edit/delete it
+4. Toggle favorites and view the sidebar
+5. Click the dark-mode toggle in the top-right corner to switch themes
+
+### Key Patterns & Learnings
+- **State Management**: Zustand for simple, scalable recipe state without boilerplate
+- **Form Handling**: `event.preventDefault()` in EditRecipeForm to prevent page reloads
+- **Navigation**: `useNavigate()` for programmatic routing (e.g., after deletion)
+- **Context API**: ThemeProvider for cross-app dark-mode support
+- **Modular Components**: Reusable components consuming store and theme via hooks
+- **CSS Variables**: Theme palette defined at the `:root` level, overridden in `[data-theme='dark']`
+
 ## Key Concepts Learned
 
 1. **React Component Creation**
@@ -286,6 +374,13 @@ npm run dev
 Company website (`my-company`):
 ```bash
 cd my-company
+npm install
+npm run dev
+```
+
+Recipe sharing app (`recipe-sharing-app`):
+```bash
+cd recipe-sharing-app
 npm install
 npm run dev
 ```
