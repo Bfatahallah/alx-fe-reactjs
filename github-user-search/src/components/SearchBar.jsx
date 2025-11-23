@@ -21,18 +21,17 @@ export default function SearchBar({ onResults }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="search-bar" style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+    <form onSubmit={handleSubmit} className="search-bar">
       <input
         type="text"
         value={query}
         onChange={e=>setQuery(e.target.value)}
         placeholder="Search GitHub users..."
-        style={{flex:'1 1 260px',padding:'8px 12px',border:'1px solid #ccc',borderRadius:6}}
       />
-      <button type="submit" disabled={loading} style={{padding:'8px 16px',borderRadius:6,border:'1px solid #333',background:'#111',color:'#fff'}}>
+      <button type="submit" disabled={loading}>
         {loading ? 'Searching...' : 'Search'}
       </button>
-      {error && <div style={{width:'100%',color:'red'}}>{error}</div>}
+      {error && <div className="error-message" style={{width:'100%'}}>{error}</div>}
     </form>
   )
 }
