@@ -40,7 +40,7 @@ export async function searchUsers(criteria) {
     return []
   }
   
-  const response = await githubClient.get('/search/users', {
+  const response = await githubClient.get('https://api.github.com/search/users?q', {
     params: { q: query.trim(), per_page: 30 }
   })
   
