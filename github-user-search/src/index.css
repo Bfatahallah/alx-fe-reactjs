@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* CLI Terminal Theme */
 :root {
   /* Terminal color palette */

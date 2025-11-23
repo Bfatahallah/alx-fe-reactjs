@@ -44,5 +44,28 @@ export async function searchUsers(criteria) {
     params: { q: query.trim(), per_page: 30 }
   })
   
-  return response.data.items || []
+  // Enrich results with additional user data
+  const users = response.data.items || []
+  
+  // Optionally fetch detailed info for each user (be mindful of rate limits)
+  const enrichedUsers = await Promise.all(
+    users.slice(0, 30).map(async (user) => {
+      try {
+        const detailedData = await githubClient.get(`/users/${user.login}`)
+        return {
+          ...user,
+          location: detailedData.data.location,
+          public_repos: detailedData.data.public_repos,
+          followers: detailedData.data.followers,
+          following: detailedData.data.following,
+          bio: detailedData.data.bio
+        }
+      } catch (err) {
+        // Return basic data if detailed fetch fails
+        return user
+      }
+    })
+  )
+  
+  return enrichedUsers
 }
