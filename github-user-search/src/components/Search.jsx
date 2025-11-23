@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { fetchUserData, searchUsers } from '../services/githubService'
+import { fetchUserData, searchUsers, fetchUserRepos } from '../services/githubService'
 
 export default function Search() {
   const [username, setUsername] = useState('')
@@ -14,6 +14,7 @@ export default function Search() {
   const [nameSuggestions, setNameSuggestions] = useState([])
   const [searchSubmitted, setSearchSubmitted] = useState(false)
   const [visibleCount, setVisibleCount] = useState(9)
+  // Popup related state not needed since we use separate window
 
   function generateNameSuggestions(name) {
     if (!name || name.length < 2) return []
@@ -108,6 +109,81 @@ export default function Search() {
   async function handleLoadMore() {
     // Simplified load more - in production you'd handle pagination properly
     setPage(prev => prev + 1)
+  }
+
+  async function handleViewProfile(user) {
+    // Open popup immediately (synchronous) to avoid being blocked.
+    const popup = window.open('', '_blank', 'width=900,height=700,noopener,noreferrer')
+    if (!popup) {
+      alert('Popup blocked. Please allow popups for this site.')
+      return
+    }
+    // Basic loading shell
+    popup.document.write(`<!DOCTYPE html><html><head><title>Loading ${user.login}...</title><style>
+      body{font-family:Courier New,monospace;background:#0c0c0c;color:#ccc;margin:0;padding:20px;}
+      .loading{color:#ffff00;animation:pulse 1s infinite alternate;font-weight:bold;}
+      @keyframes pulse{from{opacity:.4}to{opacity:1}}
+    </style></head><body><p class='loading'>Loading profile...</p></body></html>`)
+    popup.document.close()
+
+    // Fetch data asynchronously
+    let detailed = user
+    try { detailed = await fetchUserData(user.login) } catch(e) {}
+    let repos = []
+    try { repos = await fetchUserRepos(user.login) } catch(e) {}
+
+    const style = `
+      body { font-family: Courier New, monospace; background:#0c0c0c; color:#ccc; margin:0; padding:16px; }
+      h1 { margin:0 0 16px; font-size:24px; color:#00d7ff; }
+      h2 { margin:24px 0 8px; font-size:16px; color:#00ff87; text-transform:uppercase; letter-spacing:2px; }
+      a { color:#00d7ff; text-decoration:none; }
+      a:hover { text-decoration:underline; color:#8be9fd; }
+      .badge { display:inline-block; background:rgba(0,215,255,0.1); border:1px solid #00d7ff; color:#00d7ff; padding:4px 8px; font-size:12px; margin:4px 4px 0 0; }
+      .container { border:2px solid #44475a; border-left:4px solid #00d7ff; padding:16px; background:rgba(0,0,0,0.4); box-shadow:0 0 12px rgba(0,215,255,0.15); }
+      .repos { list-style:none; margin:0; padding:0; }
+      .repo { border:1px solid #44475a; padding:8px 12px; margin-bottom:6px; background:#111; }
+      .repo:hover { border-color:#00d7ff; box-shadow:0 0 8px rgba(0,215,255,0.2); }
+      .muted { color:#6272a4; font-size:12px; }
+      button { background:transparent; border:2px solid #ff79c6; color:#ff79c6; padding:8px 16px; font-weight:bold; text-transform:uppercase; letter-spacing:1px; cursor:pointer; }
+      button:hover { background:#ff79c6; color:#0c0c0c; box-shadow:0 0 8px rgba(255,121,198,0.4); }
+      .closeBtn { position:fixed; top:8px; right:12px; background:transparent; border:2px solid #ff5555; color:#ff5555; }
+      .closeBtn:hover { background:#ff5555; color:#0c0c0c; }
+      .desc { color:#6272a4; font-size:12px; margin-top:4px; }
+    `
+    const esc = v => (v||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    const firstTen = repos.slice(0,10).map(r => (
+      `<li class="repo"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+        <a href="${r.html_url}" target="_blank" rel="noopener noreferrer">${esc(r.name)}</a>
+        <span class="muted">${new Date(r.updated_at).toLocaleDateString()}</span>
+      </div>${r.description?`<div class="desc">${esc(r.description)}</div>`:''}</li>`
+    )).join('') || '<p class="muted">No repositories found.</p>'
+
+    popup.document.open()
+    popup.document.write(`<!DOCTYPE html><html><head><title>${esc(detailed.login)} - Profile</title><style>${style}</style></head><body>
+      <button class="closeBtn" onclick="window.close()">X</button>
+      <div class="container">
+        <h1>&gt; ${esc(detailed.login)}</h1>
+        ${detailed.bio?`<p class="desc" style="margin-bottom:12px;">${esc(detailed.bio)}</p>`:''}
+        <div style="margin-bottom:12px;">
+          ${detailed.location?`<span class="badge">📍 ${esc(detailed.location)}</span>`:''}
+          <span class="badge">Repos: ${detailed.public_repos}</span>
+          <span class="badge">Followers: ${detailed.followers}</span>
+          <span class="badge">Following: ${detailed.following}</span>
+          <a class="badge" href="${detailed.html_url}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        </div>
+        <h2>Latest Repositories</h2>
+        <ul class="repos" id="repoList">${firstTen}</ul>
+        ${repos.length>10?'<div style="text-align:center;margin-top:16px;"><button id="showMoreBtn">Show More (+10)</button></div>':''}
+      </div>
+      <script>(function(){
+        const allRepos = ${JSON.stringify(repos.map(r=>({id:r.id,name:r.name,html_url:r.html_url,description:r.description,updated_at:r.updated_at})))};
+        let visible = 10; const listEl = document.getElementById('repoList'); const btn = document.getElementById('showMoreBtn');
+        function esc(v){return (v||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+        function render(){listEl.innerHTML = allRepos.slice(0,visible).map(function(r){return '<li class=\"repo\"><div style=\"display:flex;justify-content:space-between;align-items:center;gap:12px;\"><a href=\"'+r.html_url+'\" target=\"_blank\" rel=\"noopener noreferrer\">'+esc(r.name)+'</a><span class=\"muted\">'+new Date(r.updated_at).toLocaleDateString()+'</span></div>'+(r.description?'<div class=\"desc\">'+esc(r.description)+'</div>':'')+'</li>';}).join(''); if(visible>=allRepos.length && btn){btn.style.display='none';}}
+        if(btn){btn.addEventListener('click',function(){visible+=10;render();});}
+      })();</script>
+    </body></html>`)
+    popup.document.close()
   }
 
   return (
@@ -226,7 +302,8 @@ export default function Search() {
                   <img
                     src={user.avatar_url}
                     alt={user.login}
-                    className="w-14 h-14 rounded-full border-2 border-cli-cyan shadow-[0_0_8px_rgba(0,215,255,0.3)] mb-2"
+                    className="rounded-full border-2 border-cli-cyan shadow-[0_0_8px_rgba(0,215,255,0.3)] mb-2"
+                    style={{ width: '200px', height: '200px' }}
                   />
                   <h3 className="text-cli-bright font-bold text-base truncate w-full">
                     {user.login}
@@ -248,14 +325,11 @@ export default function Search() {
                     )}
                   </div>
                   
-                  <a
-                    href={user.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cli-cyan hover:text-cli-blue hover:underline text-sm inline-flex items-center gap-1"
-                  >
-                    View Profile →
-                  </a>
+                  <button
+                    onClick={() => handleViewProfile(user)}
+                    className="text-cli-cyan hover:text-cli-blue underline text-sm inline-flex items-center gap-1 mt-1"
+                    type="button"
+                  >View Profile ↗</button>
                 </div>
               ))}
             </div>
@@ -273,6 +347,8 @@ export default function Search() {
           </>
         )}
       </div>
+
+      {/* Popup content handled via window.open; no in-page modal */}
     </div>
   )
 }

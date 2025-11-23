@@ -40,18 +40,22 @@ export async function searchUsers(criteria) {
     return []
   }
   
-  const response = await githubClient.get('https://api.github.com/search/users?q', {
+  // https://api.github.com/search/users?q
+  const response = await githubClient.get('/search/users', {
     params: { q: query.trim(), per_page: 30 }
   })
   
   // Enrich results with additional user data
   const users = response.data.items || []
   
+  console.log('Search API returned users:', users.length)
+  
   // Optionally fetch detailed info for each user (be mindful of rate limits)
   const enrichedUsers = await Promise.all(
     users.slice(0, 30).map(async (user) => {
       try {
         const detailedData = await githubClient.get(`/users/${user.login}`)
+        console.log(`Fetched details for ${user.login}:`, detailedData.data.public_repos, 'repos')
         return {
           id: user.id,
           login: user.login,
@@ -81,5 +85,34 @@ export async function searchUsers(criteria) {
     })
   )
   
+  console.log('Enriched users:', enrichedUsers)
   return enrichedUsers
+}
+
+/**
+ * Fetch repositories for a given user sorted by updated date desc
+ * @param {string} username - GitHub username
+ * @returns {Promise<Array>} Array of repo objects (name, html_url, description, updated_at)
+ */
+export async function fetchUserRepos(username) {
+  if (!username) return []
+  try {
+    const response = await githubClient.get(`/users/${username}/repos`, {
+      params: {
+        sort: 'updated',
+        direction: 'desc',
+        per_page: 100
+      }
+    })
+    return (response.data || []).map(r => ({
+      id: r.id,
+      name: r.name,
+      html_url: r.html_url,
+      description: r.description,
+      updated_at: r.updated_at
+    }))
+  } catch (err) {
+    console.error('Failed to fetch repos for', username, err.message)
+    return []
+  }
 }
