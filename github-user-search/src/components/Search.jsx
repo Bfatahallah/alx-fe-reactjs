@@ -12,6 +12,8 @@ export default function Search() {
   const [hasMore, setHasMore] = useState(false)
   const [showAnimation, setShowAnimation] = useState(false)
   const [nameSuggestions, setNameSuggestions] = useState([])
+  const [searchSubmitted, setSearchSubmitted] = useState(false)
+  const [visibleCount, setVisibleCount] = useState(9)
 
   function generateNameSuggestions(name) {
     if (!name || name.length < 2) return []
@@ -68,6 +70,8 @@ export default function Search() {
     setPage(1)
     setShowAnimation(false)
     setNameSuggestions([])
+    setSearchSubmitted(true)
+    setVisibleCount(9)
 
     try {
       const results = await searchUsers({
@@ -78,14 +82,17 @@ export default function Search() {
       
       if (results.length === 0) {
         // Trigger animation and generate suggestions
+        console.log('No results found, triggering animation')
         setShowAnimation(true)
         const suggestions = generateNameSuggestions(username)
+        console.log('Generated suggestions:', suggestions)
         setNameSuggestions(suggestions)
         
-        // Remove animation after 1 second
+        // Remove animation after 0.5 seconds
         setTimeout(() => {
+          console.log('Removing animation')
           setShowAnimation(false)
-        }, 1000)
+        }, 500)
       }
       
       setUsers(results)
@@ -180,7 +187,7 @@ export default function Search() {
           </div>
         )}
 
-        {!loading && !error && users.length === 0 && (username || location) && (
+        {!loading && !error && users.length === 0 && searchSubmitted && (
           <div className={`text-cli-gray text-center py-12 border-2 border-dashed border-cli-border bg-white/2 ${showAnimation ? 'vibrate-blink' : ''}`}>
             <p className="font-bold text-lg mb-3">No results yet. Try searching...</p>
             {nameSuggestions.length > 0 && username && (
@@ -210,33 +217,29 @@ export default function Search() {
               &gt; Results [{users.length}]
             </h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-              {users.map(user => (
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              {users.slice(0, visibleCount).map(user => (
                 <div
                   key={user.id}
-                  className="bg-black/30 border-2 border-cli-border border-l-4 border-l-cli-cyan p-4 hover:border-l-cli-yellow hover:bg-black/50 hover:shadow-[0_0_12px_rgba(0,215,255,0.2)] transition-all"
+                  className="bg-black/30 border-2 border-cli-border border-l-4 border-l-cli-cyan p-3 hover:border-l-cli-yellow hover:bg-black/50 hover:shadow-[0_0_12px_rgba(0,215,255,0.2)] transition-all flex flex-col items-center text-center max-w-xs"
                 >
-                  <div className="flex items-start gap-4 mb-3">
-                    <img
-                      src={user.avatar_url}
-                      alt={user.login}
-                      className="w-16 h-16 rounded-full border-2 border-cli-cyan shadow-[0_0_8px_rgba(0,215,255,0.3)]"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-cli-bright font-bold text-lg truncate">
-                        {user.login}
-                      </h3>
-                      {user.location && (
-                        <p className="text-cli-gray text-sm truncate">
-                          📍 {user.location}
-                        </p>
-                      )}
-                    </div>
-                  </div>
+                  <img
+                    src={user.avatar_url}
+                    alt={user.login}
+                    className="w-14 h-14 rounded-full border-2 border-cli-cyan shadow-[0_0_8px_rgba(0,215,255,0.3)] mb-2"
+                  />
+                  <h3 className="text-cli-bright font-bold text-base truncate w-full">
+                    {user.login}
+                  </h3>
+                  {user.location && (
+                    <p className="text-cli-gray text-sm truncate w-full mb-3">
+                      📍 {user.location}
+                    </p>
+                  )}
                   
-                  <div className="flex flex-wrap gap-2 mb-3 text-xs">
+                  <div className="flex flex-wrap justify-center gap-2 mb-3 text-xs">
                     <span className="bg-cli-cyan/10 border border-cli-cyan text-cli-cyan px-2 py-1">
-                      Repos: {user.public_repos || 0}
+                      Repos: {user.public_repos ?? 'N/A'}
                     </span>
                     {user.followers !== undefined && (
                       <span className="bg-cli-cyan/10 border border-cli-cyan text-cli-cyan px-2 py-1">
@@ -257,13 +260,13 @@ export default function Search() {
               ))}
             </div>
 
-            {hasMore && (
+            {users.length > visibleCount && (
               <div className="text-center">
                 <button
-                  onClick={handleLoadMore}
+                  onClick={() => setVisibleCount(prev => prev + 9)}
                   className="border-2 border-cli-magenta bg-transparent text-cli-magenta px-6 py-2 font-bold uppercase tracking-wider hover:bg-cli-magenta hover:text-cli-bg transition-all"
                 >
-                  Load More
+                  View More Results ({users.length - visibleCount} remaining)
                 </button>
               </div>
             )}

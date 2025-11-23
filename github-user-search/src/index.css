@@ -69,7 +69,7 @@ a:hover {
 }
 
 .vibrate-blink {
-  animation: vibrate-blink 1s ease-in-out;
+  animation: vibrate-blink 0.5s ease-in-out;
 }
 
 body {

@@ -53,7 +53,10 @@ export async function searchUsers(criteria) {
       try {
         const detailedData = await githubClient.get(`/users/${user.login}`)
         return {
-          ...user,
+          id: user.id,
+          login: user.login,
+          avatar_url: user.avatar_url,
+          html_url: user.html_url,
           location: detailedData.data.location,
           public_repos: detailedData.data.public_repos,
           followers: detailedData.data.followers,
@@ -61,8 +64,19 @@ export async function searchUsers(criteria) {
           bio: detailedData.data.bio
         }
       } catch (err) {
-        // Return basic data if detailed fetch fails
-        return user
+        console.error(`Failed to fetch details for ${user.login}:`, err.message)
+        // Return basic data with fallback values
+        return {
+          id: user.id,
+          login: user.login,
+          avatar_url: user.avatar_url,
+          html_url: user.html_url,
+          location: null,
+          public_repos: 0,
+          followers: 0,
+          following: 0,
+          bio: null
+        }
       }
     })
   )
