@@ -10,6 +10,50 @@ export default function Search() {
   const [error, setError] = useState(false)
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(false)
+  const [showAnimation, setShowAnimation] = useState(false)
+  const [nameSuggestions, setNameSuggestions] = useState([])
+
+  function generateNameSuggestions(name) {
+    if (!name || name.length < 2) return []
+    
+    const cleanName = name.trim().toLowerCase()
+    const suggestions = []
+    
+    // Split by spaces and try variations
+    const parts = cleanName.split(/[\s._-]+/).filter(p => p.length > 0)
+    
+    if (parts.length > 1) {
+      // Full name with space
+      suggestions.push(parts.join(' '))
+      // Without space
+      suggestions.push(parts.join(''))
+      // With dots
+      suggestions.push(parts.join('.'))
+      // With hyphens
+      suggestions.push(parts.join('-'))
+      // With underscore
+      suggestions.push(parts.join('_'))
+      // First initial + rest
+      suggestions.push(parts[0][0] + '.' + parts.slice(1).join(''))
+      // All initials
+      suggestions.push(parts.map(p => p[0]).join('.'))
+      // Reverse order
+      suggestions.push(parts.reverse().join('.'))
+    } else {
+      // Single word variations
+      suggestions.push(cleanName)
+      if (cleanName.length > 3) {
+        // Add numbers
+        suggestions.push(cleanName + '123')
+        suggestions.push(cleanName + '456')
+      }
+    }
+    
+    // Remove duplicates and the original search term
+    return [...new Set(suggestions)]
+      .filter(s => s !== cleanName)
+      .slice(0, 5)
+  }
 
   async function handleSubmit(event) {
     event.preventDefault()
@@ -22,6 +66,8 @@ export default function Search() {
     setError(false)
     setUsers([])
     setPage(1)
+    setShowAnimation(false)
+    setNameSuggestions([])
 
     try {
       const results = await searchUsers({
@@ -29,6 +75,19 @@ export default function Search() {
         location: location.trim(),
         minRepos: minRepos ? parseInt(minRepos) : 0
       })
+      
+      if (results.length === 0) {
+        // Trigger animation and generate suggestions
+        setShowAnimation(true)
+        const suggestions = generateNameSuggestions(username)
+        setNameSuggestions(suggestions)
+        
+        // Remove animation after 1 second
+        setTimeout(() => {
+          setShowAnimation(false)
+        }, 1000)
+      }
+      
       setUsers(results)
       setHasMore(results.length >= 30)
     } catch (err) {
@@ -122,8 +181,26 @@ export default function Search() {
         )}
 
         {!loading && !error && users.length === 0 && (username || location) && (
-          <div className="text-cli-gray text-center py-12 border-2 border-dashed border-cli-border bg-white/2">
-            No users found matching your criteria. Try different search terms.
+          <div className={`text-cli-gray text-center py-12 border-2 border-dashed border-cli-border bg-white/2 ${showAnimation ? 'vibrate-blink' : ''}`}>
+            <p className="font-bold text-lg mb-3">No results yet. Try searching...</p>
+            {nameSuggestions.length > 0 && username && (
+              <div className="mt-4">
+                <p className="text-cli-yellow mb-2 text-sm">
+                  <span className="font-bold">"{username}"</span> not found. Try these variations:
+                </p>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {nameSuggestions.map((suggestion, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setUsername(suggestion)}
+                      className="bg-cli-cyan/10 border border-cli-cyan text-cli-cyan px-3 py-1 text-sm hover:bg-cli-cyan hover:text-cli-bg transition-all"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
