@@ -2,6 +2,51 @@
 
 All notable changes to this repository are documented here. Dates use YYYY-MM-DD.
 
+## 2025-11-23
+
+- New project: `github-user-search` (GitHub API Integration + Tailwind CSS)
+  - **Project Setup**: Vite React application with Axios for HTTP requests
+  - **GitHub API Service** (`src/services/githubService.js`):
+    - `fetchUserData(username)`: Fetches single user from `/users/{username}` endpoint
+    - `searchUsers(criteria)`: Advanced search supporting username, location, and min repository filters
+    - Uses GitHub Search API (`/search/users?q={query}`) with query parameter construction
+    - Data enrichment: Fetches detailed user info (location, repos, followers, bio) for each result
+  - **Components**:
+    - `Search.jsx`: Advanced search form with three filter inputs (username, location, min repos)
+    - `SearchBar.jsx`: Simple search component for basic username lookup
+    - Conditional rendering for loading, error ("Looks like we cant find the user"), and success states
+  - **Tailwind CSS Integration**:
+    - Installed `@tailwindcss/postcss` and configured PostCSS pipeline
+    - Custom CLI color palette in `tailwind.config.js` (cyan, green, yellow, red, magenta, etc.)
+    - Responsive grid layouts (1/2/3 columns) with Tailwind breakpoints
+    - Utility classes for forms, buttons, cards, and badges
+  - **CLI Terminal Theme**:
+    - Dark background (#0c0c0c) with vibrant terminal colors
+    - Monospace fonts (Courier New, Consolas, Monaco)
+    - Colored borders (green for search, cyan for users, magenta for details)
+    - Glowing hover effects with box-shadows
+    - Uppercase headers with `$` and `>` terminal-style prefixes
+    - Custom CSS variables integrated with Tailwind theme
+  - **Features**:
+    - Advanced search with location and repository count filters
+    - Grid display of user results with avatars, usernames, locations, repo counts
+    - Load More button for pagination (foundation ready)
+    - Profile links opening in new tabs
+    - Accessible forms with proper labels and focus states
+  - **Environment Setup**:
+    - `.env.example` template for optional `VITE_GITHUB_TOKEN`
+    - Axios client with conditional authorization header
+    - Rate limit considerations and error handling
+
+- Documentation
+  - Updated root `README.md`:
+    - Added `github-user-search/` to repository structure
+    - Comprehensive project section documenting features, structure, API integration, CLI theme, and usage
+    - Code examples for `fetchUserData` and `searchUsers` functions
+    - Run commands and environment variable setup
+    - Key patterns section covering GitHub API, Tailwind CSS, data enrichment, responsive design
+  - Updated `CHANGELOG.md` (this entry) with complete github-user-search implementation details
+
 ## 2025-11-16
 
 - New project: `recipe-sharing-app` (Zustand + Dark-Mode Theme)

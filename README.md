@@ -31,7 +31,8 @@ alx-fe-reactjs/
 ├── alx-react-app-new/          # Rebuild + Counter component and styling experiments
 ├── alx-react-app-props/        # Prop drilling → Context API refactor (with custom hook)
 ├── my-company/                 # Four-page company site with React Router + inline styles
-└── recipe-sharing-app/         # Recipe management app with Zustand + dark-mode theme
+├── recipe-sharing-app/         # Recipe management app with Zustand + dark-mode theme
+└── github-user-search/         # GitHub user search with advanced filters + Tailwind CSS
 ```
 
 ## Project Structure (Primary App)
@@ -309,6 +310,115 @@ Visit http://localhost:5173/ and:
 - **Modular Components**: Reusable components consuming store and theme via hooks
 - **CSS Variables**: Theme palette defined at the `:root` level, overridden in `[data-theme='dark']`
 
+## Project: `github-user-search` (GitHub API Integration with Advanced Search)
+
+A modern GitHub user search application featuring advanced filtering, Tailwind CSS styling, and a CLI-inspired terminal theme.
+
+### Features
+- **Basic User Search**: Search GitHub users by username using the GitHub REST API
+- **Advanced Filters**: Filter by location and minimum repository count
+- **Rich Results Display**: Grid layout showing avatars, usernames, locations, repo counts, and follower stats
+- **Responsive Design**: Tailwind CSS with mobile-first approach (1/2/3 column grid)
+- **CLI Terminal Theme**: Retro colored terminal aesthetic with monospace fonts and vibrant accents
+- **Loading States**: Animated loading indicators and error messages
+- **Load More**: Pagination support for browsing large result sets
+- **API Service Layer**: Clean separation with `githubService.js` handling all API calls
+
+### Project Structure
+```
+github-user-search/
+├── src/
+│   ├── components/
+│   │   ├── Search.jsx              # Main search component with advanced filters
+│   │   └── SearchBar.jsx           # Simple search bar (legacy/alternative)
+│   ├── services/
+│   │   ├── githubService.js        # API integration (fetchUserData, searchUsers)
+│   │   └── githubApi.js            # Axios client setup
+│   ├── App.jsx                     # App entry with routing layout
+│   ├── index.css                   # Tailwind + CLI theme variables
+│   ├── App.css                     # Component-specific CLI styles
+│   └── main.jsx                    # React bootstrap
+├── .env.example                    # Template for GitHub token (optional)
+├── tailwind.config.js              # Tailwind with custom CLI color palette
+├── postcss.config.js               # PostCSS with @tailwindcss/postcss
+└── vite.config.js
+```
+
+### GitHub API Integration
+```javascript
+// src/services/githubService.js
+
+// Fetch single user by username
+export async function fetchUserData(username) {
+  const response = await githubClient.get(`/users/${username}`)
+  return response.data
+}
+
+// Advanced search with location and min repos
+export async function searchUsers(criteria) {
+  const { username, location, minRepos } = criteria
+  let query = username || ''
+  if (location) query += ` location:${location}`
+  if (minRepos > 0) query += ` repos:>=${minRepos}`
+  
+  const response = await githubClient.get('/search/users', {
+    params: { q: query.trim(), per_page: 30 }
+  })
+  // Returns enriched user data with location, repos, followers, bio
+  return enrichedUsers
+}
+```
+
+### CLI Terminal Theme
+- **Color Palette**: Dark background (#0c0c0c) with vibrant accents (cyan, green, yellow, red, magenta)
+- **Monospace Fonts**: Courier New, Consolas, Monaco for authentic terminal feel
+- **Border Styles**: Colored left borders (green for search, cyan for users, magenta for details)
+- **Glowing Effects**: Box-shadows on hover with neon-style highlights
+- **Uppercase Headers**: Terminal-style prompts with `$` and `>` prefixes
+- **Tailwind Integration**: Custom CLI colors in Tailwind config for utility classes
+
+### Advanced Search Form
+Three filter inputs with responsive grid layout:
+1. **Username** (text) - e.g., "octocat"
+2. **Location** (text) - e.g., "San Francisco"
+3. **Min Repositories** (number) - e.g., "10"
+
+### Results Display
+- **Grid Layout**: Responsive 1/2/3 columns based on screen size
+- **User Cards**: Avatar with glowing border, username, location badge, repo/follower counts
+- **Profile Links**: Direct links to GitHub profiles
+- **Load More Button**: Pagination for browsing additional results
+
+### Running the App
+```bash
+cd github-user-search
+npm install
+npm run dev
+```
+
+Visit http://localhost:5173/ and:
+1. Enter search criteria (username, location, min repos)
+2. Click "Search Users" to fetch results
+3. Browse the grid of matching users
+4. Click "View Profile" to open GitHub profiles
+5. Use "Load More" for pagination (if available)
+
+### Environment Variables (Optional)
+Copy `.env.example` to `.env` and add a GitHub token to increase rate limits:
+```
+VITE_GITHUB_TOKEN=ghp_your_personal_access_token
+```
+
+### Key Patterns & Learnings
+- **GitHub API**: RESTful API integration with search endpoints and user detail fetching
+- **Axios**: HTTP client with base URL and authorization header configuration
+- **Tailwind CSS**: Utility-first CSS with custom theme extension
+- **Advanced Queries**: Building GitHub search queries with location and repo filters
+- **Data Enrichment**: Fetching detailed user data to supplement search results
+- **Responsive Design**: Mobile-first grid layouts with Tailwind breakpoints
+- **Loading States**: Conditional rendering for loading, error, and empty states
+- **CLI Aesthetics**: Custom color palette and terminal-inspired UI design
+
 ## Key Concepts Learned
 
 1. **React Component Creation**
@@ -381,6 +491,13 @@ npm run dev
 Recipe sharing app (`recipe-sharing-app`):
 ```bash
 cd recipe-sharing-app
+npm install
+npm run dev
+```
+
+GitHub user search (`github-user-search`):
+```bash
+cd github-user-search
 npm install
 npm run dev
 ```
