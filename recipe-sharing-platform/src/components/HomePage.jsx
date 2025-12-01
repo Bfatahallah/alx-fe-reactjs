@@ -6,8 +6,7 @@ import RecipeCard from './RecipeCard'
 export default function HomePage() {
   const [allRecipes, setAllRecipes] = useState([])
 
-  useEffect(() => {
-    // Load static data + user recipes from localStorage
+  const loadRecipes = () => {
     const userRecipes = (() => {
       try {
         return JSON.parse(localStorage.getItem('userRecipes') || '[]')
@@ -16,21 +15,34 @@ export default function HomePage() {
       }
     })()
     setAllRecipes([...userRecipes, ...recipesData])
+  }
+
+  useEffect(() => {
+    loadRecipes()
   }, [])
 
   useEffect(() => {
     // Listen for storage changes (other tabs) and refresh list
     function handleStorage(e) {
       if (e.key === 'userRecipes') {
-        try {
-          const userRecipes = JSON.parse(e.newValue || '[]')
-          setAllRecipes([...userRecipes, ...recipesData])
-        } catch {}
+        loadRecipes()
       }
     }
     window.addEventListener('storage', handleStorage)
     return () => window.removeEventListener('storage', handleStorage)
   }, [])
+
+  const handleDelete = (id) => {
+    if (!window.confirm('Delete this recipe?')) return
+    try {
+      const userRecipes = JSON.parse(localStorage.getItem('userRecipes') || '[]')
+      const updated = userRecipes.filter(r => r.id !== id)
+      localStorage.setItem('userRecipes', JSON.stringify(updated))
+      loadRecipes()
+    } catch (err) {
+      console.error('Delete failed:', err)
+    }
+  }
 
   return (
     <div>
@@ -78,7 +90,7 @@ export default function HomePage() {
                   <h3 className="text-xl font-semibold text-indigo-300">Your Recipes</h3>
                   <p className="text-sm text-gray-400 mt-1">Locally added recipes stored in your browser.</p>
                   <section className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {userRecipes.map(r => <RecipeCard key={r.id} recipe={r} />)}
+                    {userRecipes.map(r => <RecipeCard key={r.id} recipe={r} onDelete={handleDelete} />)}
                   </section>
                   <div className="h-px w-full bg-gradient-to-r from-indigo-500/40 via-white/10 to-transparent mt-10" />
                 </div>

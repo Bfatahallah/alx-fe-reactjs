@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useImageModalStore } from '../store/imageModalStore'
 
-export default function RecipeCard({ recipe }) {
+export default function RecipeCard({ recipe, onDelete }) {
   const navigate = useNavigate()
   const { openModal } = useImageModalStore()
   const isUserRecipe = typeof recipe.id === 'number' && recipe.id > 100000000000 // timestamp id heuristic
@@ -50,6 +50,28 @@ export default function RecipeCard({ recipe }) {
         <p className="mt-2 text-sm text-gray-300 transition-colors duration-300 group-hover:text-gray-800">
           {recipe.summary}
         </p>
+        {isUserRecipe && onDelete && (
+          <div className="flex gap-2 mt-3">
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                navigate(`/edit/${recipe.id}`)
+              }}
+              className="text-xs font-medium px-3 py-1.5 rounded bg-indigo-600/90 hover:bg-indigo-500 text-white transition-colors"
+            >
+              Edit
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                onDelete(recipe.id)
+              }}
+              className="text-xs font-medium px-3 py-1.5 rounded bg-red-600/90 hover:bg-red-500 text-white transition-colors"
+            >
+              Delete
+            </button>
+          </div>
+        )}
       </div>
     </article>
   )

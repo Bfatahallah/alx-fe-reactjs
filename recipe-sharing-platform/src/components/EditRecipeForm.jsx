@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
-export default function AddRecipeForm() {
+export default function EditRecipeForm() {
   const navigate = useNavigate()
+  const { id } = useParams()
   const [title, setTitle] = useState('')
   const [ingredients, setIngredients] = useState('')
   const [steps, setSteps] = useState('')
@@ -13,6 +14,34 @@ export default function AddRecipeForm() {
   const [submitted, setSubmitted] = useState(false)
   const [uploadedFileName, setUploadedFileName] = useState('')
   const [uploadedImageDataUrl, setUploadedImageDataUrl] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [notFound, setNotFound] = useState(false)
+
+  useEffect(() => {
+    // Load existing recipe
+    const userRecipes = JSON.parse(localStorage.getItem('userRecipes') || '[]')
+    const recipe = userRecipes.find(r => r.id === Number(id))
+    if (!recipe) {
+      setNotFound(true)
+      setLoading(false)
+      return
+    }
+    setTitle(recipe.title || '')
+    setIngredients((recipe.ingredients || []).join('\n'))
+    setSteps((recipe.steps || []).join('\n'))
+    
+    // Detect image source
+    if (recipe.image && recipe.image.startsWith('data:')) {
+      setUploadedImageDataUrl(recipe.image)
+      setUploadedFileName('Uploaded image')
+    } else if (recipe.image && recipe.image.startsWith('http')) {
+      setCustomImageUrl(recipe.image)
+    } else {
+      const fileName = recipe.image?.replace('/images/', '') || 'SpaghettiCarbonara.png'
+      setImageChoice(fileName)
+    }
+    setLoading(false)
+  }, [id])
 
   // Derived validation
   function validate(current = { title, ingredients, steps, imageChoice, customImageUrl }) {
@@ -32,8 +61,8 @@ export default function AddRecipeForm() {
   }
 
   useEffect(() => {
-    setErrors(validate())
-  }, [title, ingredients, steps, imageChoice, customImageUrl])
+    if (!loading) setErrors(validate())
+  }, [title, ingredients, steps, imageChoice, customImageUrl, loading])
 
   const isValid = Object.keys(errors).length === 0
 
@@ -44,28 +73,23 @@ export default function AddRecipeForm() {
     const ing = ingredients.split('\n').map(l => l.trim()).filter(Boolean)
     const stps = steps.split('\n').map(l => l.trim()).filter(Boolean)
     const img = uploadedImageDataUrl || customImageUrl.trim() || `/images/${imageChoice}`
-    const newRecipe = {
-      id: Date.now(),
+    const updatedRecipe = {
+      id: Number(id),
       title: title.trim(),
-      summary: stps[0] || 'New recipe',
+      summary: stps[0] || 'Updated recipe',
       ingredients: ing,
       steps: stps,
       image: img
     }
-    // Persist to localStorage list
-    const existing = JSON.parse(localStorage.getItem('userRecipes') || '[]')
-    localStorage.setItem('userRecipes', JSON.stringify([...existing, newRecipe]))
-    setSubmitted(true)
-    // Reset form
-    setTitle('')
-    setIngredients('')
-    setSteps('')
-    setImageChoice('SpaghettiCarbonara.png')
-    setCustomImageUrl('')
-    setUploadedFileName('')
-    setUploadedImageDataUrl('')
-    // Navigate back after short delay
-    setTimeout(() => navigate('/'), 1200)
+    // Update in localStorage
+    const userRecipes = JSON.parse(localStorage.getItem('userRecipes') || '[]')
+    const index = userRecipes.findIndex(r => r.id === Number(id))
+    if (index !== -1) {
+      userRecipes[index] = updatedRecipe
+      localStorage.setItem('userRecipes', JSON.stringify(userRecipes))
+      setSubmitted(true)
+      setTimeout(() => navigate('/'), 1200)
+    }
   }
 
   function renderError(name) {
@@ -74,11 +98,28 @@ export default function AddRecipeForm() {
     return <p className="mt-1 text-xs text-red-400">{errors[name]}</p>
   }
 
+  if (loading) {
+    return (
+      <main className="min-h-screen w-full px-4 py-10 flex items-center justify-center">
+        <p className="text-gray-400">Loading recipe...</p>
+      </main>
+    )
+  }
+
+  if (notFound) {
+    return (
+      <main className="min-h-screen w-full px-4 py-10 flex flex-col items-center justify-center">
+        <p className="text-gray-400 mb-4">Recipe not found.</p>
+        <Link to="/" className="text-indigo-300 hover:text-indigo-200">← Back to Home</Link>
+      </main>
+    )
+  }
+
   return (
     <main className="min-h-screen w-full px-4 sm:px-6 lg:px-8 py-10">
       <div className="max-w-3xl mx-auto">
         <div className="mb-8 flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-white">Add a New Recipe</h1>
+          <h1 className="text-3xl font-bold text-white">Edit Recipe</h1>
           <Link to="/" className="text-indigo-300 hover:text-indigo-200 text-sm">← Back</Link>
         </div>
         <form
@@ -87,7 +128,7 @@ export default function AddRecipeForm() {
         >
           {submitted && (
             <div role="status" aria-live="polite" className="rounded-lg bg-green-600/20 border border-green-500/30 p-3 text-green-300 text-sm">
-              Recipe saved! Redirecting…
+              Recipe updated! Redirecting…
             </div>
           )}
           <div>
@@ -208,17 +249,15 @@ export default function AddRecipeForm() {
               disabled={!isValid}
               className={`inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors duration-200 shadow disabled:opacity-40 disabled:cursor-not-allowed ${isValid ? 'bg-indigo-600 hover:bg-indigo-500 text-white' : 'bg-neutral-700 text-gray-300'}`}
             >
-              Save Recipe
+              Update Recipe
             </button>
-            <button
-              type="button"
-              onClick={() => { setTitle(''); setIngredients(''); setSteps(''); setErrors({}); setTouched({}); setSubmitted(false); setImageChoice('SpaghettiCarbonara.png'); setCustomImageUrl(''); setUploadedFileName(''); setUploadedImageDataUrl('') }}
+            <Link
+              to="/"
               className="text-sm text-gray-400 hover:text-gray-200 transition-colors"
             >
-              Reset
-            </button>
+              Cancel
+            </Link>
           </div>
-          <p className="text-xs text-gray-500">Your recipe is stored locally and will be visible after redirect.</p>
         </form>
       </div>
     </main>
