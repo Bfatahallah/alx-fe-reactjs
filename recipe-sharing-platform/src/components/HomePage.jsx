@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import recipesData from '../data.json'
+import RecipeCard from './RecipeCard'
 
 export default function HomePage() {
   const [recipes, setRecipes] = useState([])
@@ -17,7 +18,7 @@ export default function HomePage() {
             Recipe Sharing Platform
           </h1>
           <p className="mt-4 text-base sm:text-lg text-gray-400">
-            Discover, share, and save your favorite recipes — from weeknight
+            Discover, share, and save your favorite recipes, from weeknight
             quick wins to weekend showstoppers.
           </p>
         </div>
@@ -35,30 +36,15 @@ export default function HomePage() {
 
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {recipes.map((r) => (
-            <article
-              key={r.id}
-              className="bg-neutral-900 border border-white/10 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow"
-            >
-              <div className="aspect-video bg-neutral-800 overflow-hidden">
-                <img
-                  src={r.image}
-                  alt={r.title}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-white">
-                  {r.title}
-                </h3>
-                <p className="mt-2 text-sm text-gray-300">
-                  {r.summary}
-                </p>
-              </div>
-            </article>
+            <RecipeCard key={r.id} recipe={r} />
           ))}
         </section>
       </main>
+      {/* Global modal mount */}
+      <div id="modal-root">
+        {/* Modal uses global Zustand store */}
+        {/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
+      </div>
     </div>
   )
 }
