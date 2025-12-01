@@ -3,121 +3,521 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "/images/SpaghettiCarbonara.png"
+    "image": "/images/SpaghettiCarbonara.png",
+    "ingredients": [
+      "400g spaghetti",
+      "200g pancetta or bacon, diced",
+      "4 large eggs",
+      "100g Pecorino Romano cheese, grated",
+      "Black pepper to taste",
+      "Salt for pasta water"
+    ],
+    "steps": [
+      "Bring a large pot of salted water to boil and cook spaghetti according to package directions.",
+      "While pasta cooks, fry pancetta in a large skillet until crispy.",
+      "In a bowl, whisk together eggs, grated cheese, and black pepper.",
+      "Reserve 1 cup pasta water, then drain spaghetti.",
+      "Add hot pasta to the skillet with pancetta, remove from heat.",
+      "Quickly stir in egg mixture, adding pasta water as needed to create a creamy sauce.",
+      "Serve immediately with extra cheese and black pepper."
+    ]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Chunks of grilled chicken cooked in a creamy tomato gravy.",
-    "image": "/images/ChickenTikkaMasala.png"
+    "image": "/images/ChickenTikkaMasala.png",
+    "ingredients": [
+      "500g chicken breast, cubed",
+      "1 cup plain yogurt",
+      "2 tbsp tikka masala spice blend",
+      "1 onion, diced",
+      "3 cloves garlic, minced",
+      "1 can (400g) crushed tomatoes",
+      "200ml heavy cream",
+      "2 tbsp vegetable oil",
+      "Fresh cilantro for garnish"
+    ],
+    "steps": [
+      "Marinate chicken in yogurt and half the spice blend for at least 1 hour.",
+      "Heat oil in a large pan and sauté onion until golden.",
+      "Add garlic and remaining spices, cook for 1 minute.",
+      "Add chicken with marinade and cook until browned.",
+      "Stir in crushed tomatoes and simmer for 15 minutes.",
+      "Add cream and simmer for 5 more minutes until sauce thickens.",
+      "Garnish with fresh cilantro and serve with rice or naan."
+    ]
   },
   {
     "id": 3,
     "title": "Margherita Pizza",
     "summary": "Neapolitan-style pizza topped with fresh mozzarella and basil.",
-    "image": "/images/MargheritaPizza.png"
+    "image": "/images/MargheritaPizza.png",
+    "ingredients": [
+      "Pizza dough (store-bought or homemade)",
+      "1 cup tomato sauce",
+      "250g fresh mozzarella, sliced",
+      "Fresh basil leaves",
+      "2 tbsp olive oil",
+      "Salt to taste",
+      "Flour for dusting"
+    ],
+    "steps": [
+      "Preheat oven to 475°F (245°C) with pizza stone if available.",
+      "Roll out pizza dough on a floured surface to desired thickness.",
+      "Spread tomato sauce evenly over the dough, leaving a border.",
+      "Arrange mozzarella slices on top and drizzle with olive oil.",
+      "Transfer to oven and bake for 10-12 minutes until crust is golden.",
+      "Remove from oven and immediately top with fresh basil leaves.",
+      "Let cool for 2 minutes, slice, and serve hot."
+    ]
   },
   {
     "id": 4,
     "title": "Beef Stir-Fry",
     "summary": "Quick stir-fried beef with colorful veggies.",
-    "image": "/images/BeefStirFry.png"
+    "image": "/images/BeefStirFry.png",
+    "ingredients": [
+      "500g beef sirloin, thinly sliced",
+      "2 bell peppers, sliced",
+      "1 broccoli head, cut into florets",
+      "2 carrots, julienned",
+      "3 tbsp soy sauce",
+      "2 tbsp oyster sauce",
+      "1 tbsp cornstarch",
+      "3 cloves garlic, minced",
+      "2 tbsp vegetable oil"
+    ],
+    "steps": [
+      "Toss beef with cornstarch and 1 tbsp soy sauce, let sit for 10 minutes.",
+      "Heat 1 tbsp oil in a wok over high heat and stir-fry beef until browned. Remove.",
+      "Add remaining oil and stir-fry garlic for 30 seconds.",
+      "Add all vegetables and stir-fry for 3-4 minutes until crisp-tender.",
+      "Return beef to wok, add remaining soy sauce and oyster sauce.",
+      "Toss everything together for 1-2 minutes until well coated.",
+      "Serve immediately over steamed rice."
+    ]
   },
   {
     "id": 5,
     "title": "Greek Salad",
     "summary": "Cucumbers, tomatoes, olives, onions, and feta cheese.",
-    "image": "/images/GreekSalad.png"
+    "image": "/images/GreekSalad.png",
+    "ingredients": [
+      "3 large tomatoes, cut into wedges",
+      "1 cucumber, sliced",
+      "1 red onion, thinly sliced",
+      "1 cup Kalamata olives",
+      "200g feta cheese, cubed",
+      "3 tbsp olive oil",
+      "1 tbsp red wine vinegar",
+      "1 tsp dried oregano",
+      "Salt and pepper to taste"
+    ],
+    "steps": [
+      "In a large bowl, combine tomatoes, cucumber, onion, and olives.",
+      "In a small bowl, whisk together olive oil, vinegar, oregano, salt, and pepper.",
+      "Pour dressing over vegetables and toss gently to combine.",
+      "Top with feta cheese cubes.",
+      "Let salad sit for 10 minutes to allow flavors to meld.",
+      "Toss once more before serving.",
+      "Serve as a side dish or light main course."
+    ]
   },
   {
     "id": 6,
     "title": "Buttermilk Pancakes",
     "summary": "Fluffy golden pancakes with buttermilk.",
-    "image": "/images/ButtermilkPancakes.png"
+    "image": "/images/ButtermilkPancakes.png",
+    "ingredients": [
+      "2 cups all-purpose flour",
+      "2 tbsp sugar",
+      "2 tsp baking powder",
+      "1 tsp baking soda",
+      "1/2 tsp salt",
+      "2 cups buttermilk",
+      "2 large eggs",
+      "4 tbsp melted butter",
+      "Butter and syrup for serving"
+    ],
+    "steps": [
+      "In a large bowl, whisk together flour, sugar, baking powder, baking soda, and salt.",
+      "In another bowl, whisk buttermilk, eggs, and melted butter.",
+      "Pour wet ingredients into dry ingredients and stir until just combined (batter should be lumpy).",
+      "Heat a griddle or pan over medium heat and lightly grease.",
+      "Pour 1/4 cup batter for each pancake and cook until bubbles form on surface.",
+      "Flip and cook until golden brown on both sides.",
+      "Serve warm with butter and maple syrup."
+    ]
   },
   {
     "id": 7,
     "title": "Guacamole",
     "summary": "Avocado dip with lime, cilantro, and onion.",
-    "image": "/images/Guacamole.png"
+    "image": "/images/Guacamole.png",
+    "ingredients": [
+      "3 ripe avocados",
+      "1 lime, juiced",
+      "1/2 red onion, finely diced",
+      "2 Roma tomatoes, diced",
+      "1/4 cup fresh cilantro, chopped",
+      "1 jalapeño, seeded and minced",
+      "1 clove garlic, minced",
+      "Salt and pepper to taste"
+    ],
+    "steps": [
+      "Cut avocados in half, remove pits, and scoop flesh into a bowl.",
+      "Mash avocados with a fork to desired consistency (chunky or smooth).",
+      "Add lime juice and mix well to prevent browning.",
+      "Fold in onion, tomatoes, cilantro, jalapeño, and garlic.",
+      "Season with salt and pepper to taste.",
+      "Cover with plastic wrap pressed directly onto surface to prevent oxidation.",
+      "Serve with tortilla chips or as a topping for tacos."
+    ]
   },
   {
     "id": 8,
     "title": "Sushi Rolls",
     "summary": "Rice rolls filled with vegetables and seafood.",
-    "image": "/images/SushiRolls.png"
+    "image": "/images/SushiRolls.png",
+    "ingredients": [
+      "2 cups sushi rice",
+      "3 tbsp rice vinegar",
+      "1 tbsp sugar",
+      "Nori sheets",
+      "Cucumber, julienned",
+      "Avocado, sliced",
+      "Cooked crab or imitation crab",
+      "Soy sauce and wasabi for serving",
+      "Bamboo rolling mat"
+    ],
+    "steps": [
+      "Cook sushi rice according to package directions and let cool slightly.",
+      "Mix rice vinegar and sugar, then fold into warm rice.",
+      "Place nori sheet shiny-side down on bamboo mat.",
+      "Spread thin layer of rice over nori, leaving 1 inch at top.",
+      "Arrange fillings (cucumber, avocado, crab) in a line across the center.",
+      "Using the mat, roll tightly from bottom, sealing the top edge with water.",
+      "Slice into 6-8 pieces with a sharp wet knife and serve with soy sauce."
+    ]
   },
   {
     "id": 9,
     "title": "Vegetarian Chili",
     "summary": "Hearty bean chili simmered with warm spices.",
-    "image": "/images/VegetarianChili.png"
+    "image": "/images/VegetarianChili.png",
+    "ingredients": [
+      "1 can (400g) kidney beans, drained",
+      "1 can (400g) black beans, drained",
+      "1 can (400g) diced tomatoes",
+      "1 onion, diced",
+      "2 bell peppers, diced",
+      "3 cloves garlic, minced",
+      "2 tbsp chili powder",
+      "1 tsp cumin",
+      "2 cups vegetable broth",
+      "2 tbsp olive oil"
+    ],
+    "steps": [
+      "Heat olive oil in a large pot over medium heat.",
+      "Sauté onion and bell peppers until softened, about 5 minutes.",
+      "Add garlic, chili powder, and cumin; cook for 1 minute.",
+      "Add beans, tomatoes, and vegetable broth.",
+      "Bring to a boil, then reduce heat and simmer for 30 minutes.",
+      "Stir occasionally and add water if chili becomes too thick.",
+      "Serve hot with toppings like sour cream, cheese, and cilantro."
+    ]
   },
   {
     "id": 10,
     "title": "Chocolate Chip Cookies",
     "summary": "Chewy cookies loaded with chocolate chips.",
-    "image": "/images/ChocolateChipCookies.png"
-  }
-  ,
+    "image": "/images/ChocolateChipCookies.png",
+    "ingredients": [
+      "2 1/4 cups all-purpose flour",
+      "1 tsp baking soda",
+      "1 tsp salt",
+      "1 cup butter, softened",
+      "3/4 cup granulated sugar",
+      "3/4 cup brown sugar",
+      "2 large eggs",
+      "2 tsp vanilla extract",
+      "2 cups chocolate chips"
+    ],
+    "steps": [
+      "Preheat oven to 375°F (190°C).",
+      "In a bowl, whisk together flour, baking soda, and salt.",
+      "In a large bowl, beat butter and both sugars until creamy.",
+      "Beat in eggs and vanilla extract.",
+      "Gradually stir in flour mixture until just combined.",
+      "Fold in chocolate chips.",
+      "Drop rounded tablespoons onto ungreased baking sheets and bake for 9-11 minutes until golden. Cool on wire racks."
+    ]
+  },
   {
     "id": 11,
     "title": "Shrimp Scampi",
     "summary": "Garlicky butter shrimp tossed with pasta and lemon.",
-    "image": "/images/ShrimpScampi.png"
+    "image": "/images/ShrimpScampi.png",
+    "ingredients": [
+      "500g large shrimp, peeled and deveined",
+      "400g linguine or spaghetti",
+      "6 cloves garlic, minced",
+      "1/2 cup white wine",
+      "1/4 cup lemon juice",
+      "6 tbsp butter",
+      "2 tbsp olive oil",
+      "1/4 cup fresh parsley, chopped",
+      "Red pepper flakes to taste",
+      "Salt and pepper"
+    ],
+    "steps": [
+      "Cook pasta according to package directions; reserve 1 cup pasta water.",
+      "Heat olive oil in a large skillet over medium-high heat.",
+      "Add shrimp, season with salt and pepper, and cook for 2 minutes per side. Remove.",
+      "In the same pan, add butter and garlic; sauté for 1 minute.",
+      "Add white wine and lemon juice; simmer for 3 minutes.",
+      "Return shrimp to pan, add pasta and toss, adding pasta water as needed.",
+      "Garnish with parsley and red pepper flakes. Serve immediately."
+    ]
   },
   {
     "id": 12,
     "title": "Pad Thai",
     "summary": "Stir-fried rice noodles with tamarind sauce, tofu, and peanuts.",
-    "image": "/images/PadThai.png"
+    "image": "/images/PadThai.png",
+    "ingredients": [
+      "250g rice noodles",
+      "200g firm tofu, cubed",
+      "2 eggs, beaten",
+      "3 cloves garlic, minced",
+      "3 tbsp tamarind paste",
+      "2 tbsp fish sauce",
+      "2 tbsp brown sugar",
+      "2 cups bean sprouts",
+      "1/4 cup roasted peanuts, crushed",
+      "2 green onions, sliced",
+      "Lime wedges for serving"
+    ],
+    "steps": [
+      "Soak rice noodles in warm water for 30 minutes, then drain.",
+      "Mix tamarind paste, fish sauce, and brown sugar to make sauce.",
+      "Heat oil in a wok and fry tofu until golden. Remove.",
+      "Scramble eggs in the wok, then add garlic.",
+      "Add noodles and sauce, toss for 2-3 minutes.",
+      "Add tofu, bean sprouts, and half the peanuts and green onions.",
+      "Serve topped with remaining peanuts, green onions, and lime wedges."
+    ]
   },
   {
     "id": 13,
     "title": "Ratatouille",
     "summary": "Provencal vegetable stew of eggplant, zucchini, peppers, and tomatoes.",
-    "image": "/images/Ratatouille.png"
+    "image": "/images/Ratatouille.png",
+    "ingredients": [
+      "1 eggplant, diced",
+      "2 zucchini, diced",
+      "1 red bell pepper, diced",
+      "1 yellow bell pepper, diced",
+      "4 tomatoes, diced",
+      "1 onion, diced",
+      "4 cloves garlic, minced",
+      "3 tbsp olive oil",
+      "Fresh basil and thyme",
+      "Salt and pepper to taste"
+    ],
+    "steps": [
+      "Heat olive oil in a large pot over medium heat.",
+      "Sauté onion until softened, about 5 minutes.",
+      "Add garlic and cook for 1 minute.",
+      "Add eggplant and cook for 5 minutes, stirring occasionally.",
+      "Add zucchini and bell peppers; cook for 5 more minutes.",
+      "Add tomatoes, basil, thyme, salt, and pepper.",
+      "Simmer uncovered for 20-25 minutes until vegetables are tender. Serve warm or at room temperature."
+    ]
   },
   {
     "id": 14,
     "title": "Caprese Salad",
     "summary": "Fresh mozzarella, tomatoes, and basil drizzled with olive oil.",
-    "image": "/images/CapreseSalad.png"
+    "image": "/images/CapreseSalad.png",
+    "ingredients": [
+      "4 large ripe tomatoes, sliced",
+      "400g fresh mozzarella, sliced",
+      "Fresh basil leaves",
+      "3 tbsp extra virgin olive oil",
+      "2 tbsp balsamic glaze",
+      "Salt and pepper to taste"
+    ],
+    "steps": [
+      "Arrange tomato and mozzarella slices on a serving platter, alternating and overlapping.",
+      "Tuck fresh basil leaves between the slices.",
+      "Drizzle olive oil evenly over the salad.",
+      "Drizzle balsamic glaze in a decorative pattern.",
+      "Season with salt and freshly ground black pepper.",
+      "Let sit for 5 minutes to allow flavors to meld.",
+      "Serve at room temperature as an appetizer or side dish."
+    ]
   },
   {
     "id": 15,
     "title": "Falafel",
     "summary": "Crispy chickpea fritters served with tahini and fresh salad.",
-    "image": "/images/Falafel.png"
+    "image": "/images/Falafel.png",
+    "ingredients": [
+      "2 cans (400g each) chickpeas, drained",
+      "1 onion, chopped",
+      "4 cloves garlic",
+      "1/4 cup fresh parsley",
+      "1/4 cup fresh cilantro",
+      "1 tsp cumin",
+      "1 tsp coriander",
+      "3 tbsp flour",
+      "Salt and pepper",
+      "Oil for frying",
+      "Tahini sauce for serving"
+    ],
+    "steps": [
+      "In a food processor, combine chickpeas, onion, garlic, herbs, and spices.",
+      "Pulse until mixture is coarse but holds together when pressed.",
+      "Transfer to a bowl and stir in flour. Refrigerate for 1 hour.",
+      "Form mixture into small patties or balls.",
+      "Heat oil in a deep pan to 350°F (175°C).",
+      "Fry falafel in batches for 3-4 minutes until golden brown.",
+      "Drain on paper towels and serve with tahini sauce and pita bread."
+    ]
   },
   {
     "id": 16,
     "title": "Blueberry Muffins",
     "summary": "Soft muffins bursting with fresh blueberries.",
-    "image": "/images/BlueberryMuffins.png"
+    "image": "/images/BlueberryMuffins.png",
+    "ingredients": [
+      "2 cups all-purpose flour",
+      "3/4 cup sugar",
+      "2 tsp baking powder",
+      "1/2 tsp salt",
+      "1/3 cup vegetable oil",
+      "1 large egg",
+      "1/3 cup milk",
+      "1 1/2 cups fresh blueberries",
+      "1 tsp vanilla extract"
+    ],
+    "steps": [
+      "Preheat oven to 400°F (200°C) and line a muffin tin with paper liners.",
+      "In a large bowl, whisk together flour, sugar, baking powder, and salt.",
+      "In another bowl, whisk oil, egg, milk, and vanilla.",
+      "Pour wet ingredients into dry ingredients and stir until just combined.",
+      "Gently fold in blueberries.",
+      "Divide batter among muffin cups, filling each about 2/3 full.",
+      "Bake for 18-20 minutes until golden and a toothpick comes out clean. Cool before serving."
+    ]
   },
   {
     "id": 17,
     "title": "Quinoa Salad",
     "summary": "Zesty quinoa tossed with veggies and a lemon vinaigrette.",
-    "image": "/images/QuinoaSalad.png"
+    "image": "/images/QuinoaSalad.png",
+    "ingredients": [
+      "1 cup quinoa",
+      "2 cups water",
+      "1 cucumber, diced",
+      "2 tomatoes, diced",
+      "1/2 red onion, diced",
+      "1/4 cup fresh parsley, chopped",
+      "3 tbsp olive oil",
+      "2 tbsp lemon juice",
+      "1 tsp lemon zest",
+      "Salt and pepper to taste"
+    ],
+    "steps": [
+      "Rinse quinoa under cold water in a fine-mesh strainer.",
+      "Combine quinoa and water in a pot; bring to a boil.",
+      "Reduce heat, cover, and simmer for 15 minutes until water is absorbed.",
+      "Fluff with a fork and let cool completely.",
+      "In a large bowl, combine cooled quinoa, cucumber, tomatoes, onion, and parsley.",
+      "Whisk together olive oil, lemon juice, lemon zest, salt, and pepper.",
+      "Pour dressing over salad, toss well, and serve chilled or at room temperature."
+    ]
   },
   {
     "id": 18,
     "title": "Apple Pie",
     "summary": "Classic spiced apple filling in a flaky crust.",
-    "image": "/images/ApplePie.png"
+    "image": "/images/ApplePie.png",
+    "ingredients": [
+      "2 refrigerated pie crusts",
+      "6 cups apples, peeled and sliced",
+      "3/4 cup sugar",
+      "2 tbsp all-purpose flour",
+      "1 tsp cinnamon",
+      "1/4 tsp nutmeg",
+      "2 tbsp butter",
+      "1 egg, beaten (for egg wash)",
+      "1 tbsp lemon juice"
+    ],
+    "steps": [
+      "Preheat oven to 375°F (190°C).",
+      "Line a 9-inch pie dish with one crust.",
+      "In a large bowl, toss apples with sugar, flour, cinnamon, nutmeg, and lemon juice.",
+      "Pour apple mixture into crust and dot with butter.",
+      "Cover with second crust, seal edges, and cut slits in the top.",
+      "Brush with beaten egg and sprinkle with sugar.",
+      "Bake for 50-60 minutes until crust is golden and filling is bubbly. Cool before slicing."
+    ]
   },
   {
     "id": 19,
     "title": "Burrito Bowl",
     "summary": "Rice, beans, veggies, and your choice of protein with salsa.",
-    "image": "/images/BurritoBowl.png"
+    "image": "/images/BurritoBowl.png",
+    "ingredients": [
+      "2 cups cooked rice",
+      "1 can black beans, drained",
+      "1 cup corn kernels",
+      "2 bell peppers, diced and sautéed",
+      "1 avocado, sliced",
+      "1 cup shredded lettuce",
+      "1/2 cup salsa",
+      "1/4 cup sour cream",
+      "Lime wedges",
+      "Fresh cilantro"
+    ],
+    "steps": [
+      "Prepare rice according to package directions and season with lime juice.",
+      "Warm black beans in a small pot with a pinch of cumin.",
+      "Sauté bell peppers in a skillet until tender.",
+      "Assemble bowls by dividing rice among serving bowls.",
+      "Top each bowl with beans, corn, peppers, and lettuce.",
+      "Add avocado slices, salsa, and a dollop of sour cream.",
+      "Garnish with cilantro and serve with lime wedges."
+    ]
   },
   {
     "id": 20,
     "title": "Lasagna",
     "summary": "Layered pasta with rich meat sauce, ricotta, and mozzarella.",
-    "image": "/images/Lasagna.png"
+    "image": "/images/Lasagna.png",
+    "ingredients": [
+      "12 lasagna noodles",
+      "500g ground beef",
+      "1 jar (700g) marinara sauce",
+      "2 cups ricotta cheese",
+      "3 cups shredded mozzarella",
+      "1/2 cup Parmesan cheese, grated",
+      "1 egg",
+      "2 cloves garlic, minced",
+      "Italian seasoning",
+      "Salt and pepper"
+    ],
+    "steps": [
+      "Preheat oven to 375°F (190°C) and cook lasagna noodles according to package directions.",
+      "Brown ground beef with garlic, then stir in marinara sauce and simmer for 10 minutes.",
+      "In a bowl, mix ricotta, egg, half the mozzarella, Italian seasoning, salt, and pepper.",
+      "Spread a thin layer of meat sauce in a 9x13 inch baking dish.",
+      "Layer 4 noodles, half the ricotta mixture, and 1/3 of remaining meat sauce. Repeat.",
+      "Top with final layer of noodles, remaining sauce, mozzarella, and Parmesan.",
+      "Cover with foil and bake for 25 minutes, then uncover and bake 15 more minutes until bubbly. Let rest 10 minutes before serving."
+    ]
   }
 ]
