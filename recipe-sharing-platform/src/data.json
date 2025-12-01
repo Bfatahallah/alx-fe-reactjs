@@ -3,60 +3,121 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80"
+    "image": "/images/SpaghettiCarbonara.png"
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Chunks of grilled chicken cooked in a creamy tomato gravy.",
-    "image": "https://images.unsplash.com/photo-1604908177522-f86fad9506e9?auto=format&fit=crop&w=800&q=80"
+    "image": "/images/ChickenTikkaMasala.png"
   },
   {
     "id": 3,
     "title": "Margherita Pizza",
     "summary": "Neapolitan-style pizza topped with fresh mozzarella and basil.",
-    "image": "https://images.unsplash.com/photo-1548365328-9a934bbee121?auto=format&fit=crop&w=800&q=80"
+    "image": "/images/MargheritaPizza.png"
   },
   {
     "id": 4,
     "title": "Beef Stir-Fry",
     "summary": "Quick stir-fried beef with colorful veggies.",
-    "image": "https://images.unsplash.com/photo-1615320928555-d9a56f1a9a2b?auto=format&fit=crop&w=800&q=80"
+    "image": "/images/BeefStirFry.png"
   },
   {
     "id": 5,
     "title": "Greek Salad",
     "summary": "Cucumbers, tomatoes, olives, onions, and feta cheese.",
-    "image": "https://images.unsplash.com/photo-1568600891621-2b293f0c1f52?auto=format&fit=crop&w=800&q=80"
+    "image": "/images/GreekSalad.png"
   },
   {
     "id": 6,
     "title": "Buttermilk Pancakes",
     "summary": "Fluffy golden pancakes with buttermilk.",
-    "image": "https://images.unsplash.com/photo-1587731450704-cd3e0729f81a?auto=format&fit=crop&w=800&q=80"
+    "image": "/images/ButtermilkPancakes.png"
   },
   {
     "id": 7,
     "title": "Guacamole",
     "summary": "Avocado dip with lime, cilantro, and onion.",
-    "image": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80"
+    "image": "/images/Guacamole.png"
   },
   {
     "id": 8,
     "title": "Sushi Rolls",
     "summary": "Rice rolls filled with vegetables and seafood.",
-    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80"
+    "image": "/images/SushiRolls.png"
   },
   {
     "id": 9,
     "title": "Vegetarian Chili",
     "summary": "Hearty bean chili simmered with warm spices.",
-    "image": "https://images.unsplash.com/photo-1605475127979-f7f06f8f3e3e?auto=format&fit=crop&w=800&q=80"
+    "image": "/images/VegetarianChili.png"
   },
   {
     "id": 10,
     "title": "Chocolate Chip Cookies",
     "summary": "Chewy cookies loaded with chocolate chips.",
-    "image": "https://images.unsplash.com/photo-1590080876270-3f5ec8d4e3dc?auto=format&fit=crop&w=800&q=80"
+    "image": "/images/ChocolateChipCookies.png"
+  }
+  ,
+  {
+    "id": 11,
+    "title": "Shrimp Scampi",
+    "summary": "Garlicky butter shrimp tossed with pasta and lemon.",
+    "image": "/images/ShrimpScampi.png"
+  },
+  {
+    "id": 12,
+    "title": "Pad Thai",
+    "summary": "Stir-fried rice noodles with tamarind sauce, tofu, and peanuts.",
+    "image": "/images/PadThai.png"
+  },
+  {
+    "id": 13,
+    "title": "Ratatouille",
+    "summary": "Provencal vegetable stew of eggplant, zucchini, peppers, and tomatoes.",
+    "image": "/images/Ratatouille.png"
+  },
+  {
+    "id": 14,
+    "title": "Caprese Salad",
+    "summary": "Fresh mozzarella, tomatoes, and basil drizzled with olive oil.",
+    "image": "/images/CapreseSalad.png"
+  },
+  {
+    "id": 15,
+    "title": "Falafel",
+    "summary": "Crispy chickpea fritters served with tahini and fresh salad.",
+    "image": "/images/Falafel.png"
+  },
+  {
+    "id": 16,
+    "title": "Blueberry Muffins",
+    "summary": "Soft muffins bursting with fresh blueberries.",
+    "image": "/images/BlueberryMuffins.png"
+  },
+  {
+    "id": 17,
+    "title": "Quinoa Salad",
+    "summary": "Zesty quinoa tossed with veggies and a lemon vinaigrette.",
+    "image": "/images/QuinoaSalad.png"
+  },
+  {
+    "id": 18,
+    "title": "Apple Pie",
+    "summary": "Classic spiced apple filling in a flaky crust.",
+    "image": "/images/ApplePie.png"
+  },
+  {
+    "id": 19,
+    "title": "Burrito Bowl",
+    "summary": "Rice, beans, veggies, and your choice of protein with salsa.",
+    "image": "/images/BurritoBowl.png"
+  },
+  {
+    "id": 20,
+    "title": "Lasagna",
+    "summary": "Layered pasta with rich meat sauce, ricotta, and mozzarella.",
+    "image": "/images/Lasagna.png"
   }
 ]

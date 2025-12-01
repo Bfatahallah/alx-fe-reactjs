@@ -10,7 +10,7 @@ export default function HomePage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-neutral-900">
+    <div>
       <section className="px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl py-16 sm:py-20 text-center">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
@@ -23,7 +23,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <main className="w-full px-4 sm:px-6 lg:px-8 pb-12">
         <header className="mb-6">
           <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-gray-200">
             Featured Recipes
