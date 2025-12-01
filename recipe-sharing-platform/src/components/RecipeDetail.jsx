@@ -1,10 +1,16 @@
 import { Link, useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import data from '../data.json'
 
 export default function RecipeDetail() {
   const { id } = useParams()
-  const recipeId = Number(id)
-  const recipe = data.find((r) => r.id === recipeId)
+  const [recipe, setRecipe] = useState(null)
+
+  useEffect(() => {
+    const recipeId = Number(id)
+    const foundRecipe = data.find((r) => r.id === recipeId)
+    setRecipe(foundRecipe)
+  }, [id])
 
   if (!recipe) {
     return (
@@ -28,7 +34,7 @@ export default function RecipeDetail() {
     'Salt and pepper to taste',
     'Fresh herbs (optional)',
   ]
-  const steps = recipe.steps || [
+  const instructions = recipe.steps || [
     'Prepare all ingredients and preheat oven or pan as needed.',
     'Cook according to the recipe overview.',
     'Adjust seasoning and serve warm.',
@@ -96,7 +102,7 @@ export default function RecipeDetail() {
                 Instructions
               </h2>
               <ol className="space-y-4">
-                {steps.map((s, idx) => (
+                {instructions.map((s, idx) => (
                   <li 
                     key={idx} 
                     className="flex items-start gap-4 text-gray-300 leading-relaxed"
