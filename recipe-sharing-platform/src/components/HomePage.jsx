@@ -4,11 +4,32 @@ import recipesData from '../data.json'
 import RecipeCard from './RecipeCard'
 
 export default function HomePage() {
-  const [recipes, setRecipes] = useState([])
+  const [allRecipes, setAllRecipes] = useState([])
 
   useEffect(() => {
-    // Load data when the component mounts
-    setRecipes(recipesData)
+    // Load static data + user recipes from localStorage
+    const userRecipes = (() => {
+      try {
+        return JSON.parse(localStorage.getItem('userRecipes') || '[]')
+      } catch {
+        return []
+      }
+    })()
+    setAllRecipes([...userRecipes, ...recipesData])
+  }, [])
+
+  useEffect(() => {
+    // Listen for storage changes (other tabs) and refresh list
+    function handleStorage(e) {
+      if (e.key === 'userRecipes') {
+        try {
+          const userRecipes = JSON.parse(e.newValue || '[]')
+          setAllRecipes([...userRecipes, ...recipesData])
+        } catch {}
+      }
+    }
+    window.addEventListener('storage', handleStorage)
+    return () => window.removeEventListener('storage', handleStorage)
   }, [])
 
   return (
@@ -28,6 +49,12 @@ export default function HomePage() {
           >
             Browse Featured ↓
           </Link>
+          <Link
+            to="/add"
+            className="ml-4 mt-6 inline-block text-sm font-medium px-4 py-2 rounded-lg bg-indigo-600/90 hover:bg-indigo-500 text-white shadow transition-colors duration-200"
+          >
+            + Add Recipe
+          </Link>
         </div>
       </section>
 
@@ -41,11 +68,31 @@ export default function HomePage() {
           </p>
         </header>
 
-        <section id="featured" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {recipes.map((r) => (
-            <RecipeCard key={r.id} recipe={r} />
-          ))}
-        </section>
+        {(() => {
+          const userRecipes = allRecipes.filter(r => typeof r.id === 'number' && r.id > 100000000000)
+          const coreRecipes = allRecipes.filter(r => !(typeof r.id === 'number' && r.id > 100000000000))
+          return (
+            <>
+              {userRecipes.length > 0 && (
+                <div className="mb-8">
+                  <h3 className="text-xl font-semibold text-indigo-300">Your Recipes</h3>
+                  <p className="text-sm text-gray-400 mt-1">Locally added recipes stored in your browser.</p>
+                  <section className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {userRecipes.map(r => <RecipeCard key={r.id} recipe={r} />)}
+                  </section>
+                  <div className="h-px w-full bg-gradient-to-r from-indigo-500/40 via-white/10 to-transparent mt-10" />
+                </div>
+              )}
+              <div className="mb-6">
+                <h3 className="text-xl font-semibold text-gray-200">Featured Recipes</h3>
+                <p className="text-sm text-gray-400 mt-1">Platform curated collection.</p>
+              </div>
+              <section id="featured" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {coreRecipes.map(r => <RecipeCard key={r.id} recipe={r} />)}
+              </section>
+            </>
+          )
+        })()}
       </main>
       {/* Global modal mount */}
       <div id="modal-root">

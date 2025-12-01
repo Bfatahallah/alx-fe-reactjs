@@ -4,6 +4,7 @@ import { useImageModalStore } from '../store/imageModalStore'
 export default function RecipeCard({ recipe }) {
   const navigate = useNavigate()
   const { openModal } = useImageModalStore()
+  const isUserRecipe = typeof recipe.id === 'number' && recipe.id > 100000000000 // timestamp id heuristic
 
   return (
     <article
@@ -16,6 +17,11 @@ export default function RecipeCard({ recipe }) {
       }}
     >
       <div className="relative aspect-video bg-neutral-800 overflow-hidden cursor-zoom-in">
+        {isUserRecipe && (
+          <span className="absolute top-2 left-2 z-10 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-indigo-600/80 backdrop-blur text-[10px] font-semibold text-white tracking-wide shadow">
+            NEW
+          </span>
+        )}
         <img
           src={recipe.image}
           alt={recipe.title}
