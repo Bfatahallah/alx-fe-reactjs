@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import recipesData from '../data.json'
 import RecipeCard from './RecipeCard'
 
@@ -21,6 +22,12 @@ export default function HomePage() {
             Discover, share, and save your favorite recipes, from weeknight
             quick wins to weekend showstoppers.
           </p>
+          <Link
+            to="#featured"
+            className="mt-6 inline-block text-indigo-300 hover:text-indigo-200 transition-colors duration-200"
+          >
+            Browse Featured ↓
+          </Link>
         </div>
       </section>
 
@@ -34,7 +41,7 @@ export default function HomePage() {
           </p>
         </header>
 
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section id="featured" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {recipes.map((r) => (
             <RecipeCard key={r.id} recipe={r} />
           ))}
