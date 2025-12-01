@@ -2,7 +2,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HomePage from './components/HomePage.jsx'
 import ImageModal from './components/ImageModal.jsx'
-import RecipeDetail from './pages/RecipeDetail.jsx'
+import RecipeDetail from './components/RecipeDetail.jsx'
 
 export default function App() {
   return (
