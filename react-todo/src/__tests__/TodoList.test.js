@@ -3,6 +3,7 @@ import '@testing-library/jest-dom'
 import TodoList from '../components/TodoList'
 
 describe('TodoList Component', () => {
+  // Test 1: Initial render
   test('renders TodoList component with initial todos', () => {
     render(<TodoList />)
     
@@ -11,6 +12,7 @@ describe('TodoList Component', () => {
     expect(screen.getByText('Master testing')).toBeInTheDocument()
   })
 
+  // Test 2: Adding a new todo
   test('adds a new todo', () => {
     render(<TodoList />)
     
@@ -23,6 +25,7 @@ describe('TodoList Component', () => {
     expect(screen.getByText('New Todo Item')).toBeInTheDocument()
   })
 
+  // Test 3: Toggling todo completion
   test('toggles todo completion status', () => {
     render(<TodoList />)
     
@@ -40,6 +43,7 @@ describe('TodoList Component', () => {
     expect(todoItem).not.toHaveClass('completed')
   })
 
+  // Test 4: Deleting a todo
   test('deletes a todo', () => {
     render(<TodoList />)
     
@@ -51,6 +55,7 @@ describe('TodoList Component', () => {
     expect(screen.queryByText('Learn React')).not.toBeInTheDocument()
   })
 
+  // Test 5: Empty state
   test('shows empty state when no todos exist', () => {
     render(<TodoList />)
     
@@ -61,6 +66,7 @@ describe('TodoList Component', () => {
     expect(screen.getByText('No todos yet. Add one to get started!')).toBeInTheDocument()
   })
 
+  // Test 6: Input clearing
   test('clears input after adding a todo', () => {
     render(<TodoList />)
     
@@ -73,6 +79,7 @@ describe('TodoList Component', () => {
     expect(input.value).toBe('')
   })
 
+  // Test 7: Empty input validation
   test('does not add empty todos', () => {
     render(<TodoList />)
     

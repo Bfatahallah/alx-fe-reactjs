@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 
 function BlogPost() {
+  // useParams hook extracts the dynamic 'id' parameter from the URL
   const { id } = useParams()
 
   const posts = {

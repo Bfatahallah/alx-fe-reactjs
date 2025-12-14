@@ -31,15 +31,18 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* Dynamic route with URL parameter */}
           <Route path="/blog/:id" element={<BlogPost />} />
+          {/* Protected route with nested child routes */}
           <Route
-            path="/profile/*"
+            path="/profile"
             element={
               <ProtectedRoute isAuthenticated={isAuthenticated}>
                 <Profile />
               </ProtectedRoute>
             }
           >
+            {/* Nested routes for profile sections */}
             <Route path="details" element={<ProfileDetails />} />
             <Route path="settings" element={<ProfileSettings />} />
           </Route>

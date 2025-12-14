@@ -9,13 +9,15 @@ const fetchPosts = async () => {
 }
 
 function PostsComponent() {
+  // Using React Query's useQuery hook to fetch and cache data
+  // The query will be cached and reused on subsequent renders
   const { data, error, isLoading, isError, refetch, isFetching } = useQuery(
     'posts',
     fetchPosts,
     {
-      staleTime: 60000, // Data is fresh for 1 minute
-      cacheTime: 300000, // Cache for 5 minutes
-      refetchOnWindowFocus: true,
+      staleTime: 60000, // Data is fresh for 1 minute - demonstrates caching
+      cacheTime: 300000, // Cache persists for 5 minutes after component unmount
+      refetchOnWindowFocus: true, // Refetch when window regains focus
     }
   )
 
@@ -29,10 +31,12 @@ function PostsComponent() {
 
   return (
     <div>
+      {/* Cache status indicator - shows when data is fetched vs cached */}
       <div className="cache-info">
         {isFetching ? '🔄 Fetching fresh data...' : '✅ Data loaded from cache'}
       </div>
       
+      {/* Button to manually trigger refetch - demonstrates refetch interaction */}
       <div className="controls">
         <button onClick={() => refetch()} disabled={isFetching}>
           Refetch Posts
